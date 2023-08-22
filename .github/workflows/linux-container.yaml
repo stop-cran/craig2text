@@ -10,6 +10,10 @@ jobs:
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@main
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
@@ -28,4 +32,6 @@ jobs:
         creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
     - name: List Azure container jobs (test)
       run: |
-        az containerapp job update --name craig2telegram-job --resource-group DefaultResourceGroup-WUS --yaml azure-job.yaml -o table
+        dotnet tool install -g namespace2xml
+        namespace2xml -i azure-job.yaml -v properties.template.containers.0.image=ghcr.io/stop-cran/craig2text:0.0.${{ github.run_number }} environmentId=/subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.RESOURCE_GROUP }}/providers/Microsoft.App/managedEnvironments/craigrec2telegram-1 -s azure-job-schema.yaml
+        az containerapp job update --name craig2text-job --resource-group ${{ secrets.RESOURCE_GROUP }} --yaml azure-job-parametrized.yaml -o table

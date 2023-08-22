@@ -11,7 +11,7 @@ properties:
     triggerType: Manual
   template:
     containers:
-    - image: ghcr.io/stop-cran/craig2text:0.0.7
+    - image: null
       name: craig2text-job
       resources:
         cpu: 2.0
