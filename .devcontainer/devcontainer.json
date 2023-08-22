@@ -1,0 +1,44 @@
+{
+  "name": "Craig-to-text Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/python:0-3.10",
+
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "1gb",
+    "storage": "1gb"
+  },
+
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/pipx-package:1": {},
+    "ghcr.io/devcontainers-contrib/features/pipenv:2": {}
+  },
+
+
+  "postCreateCommand": "sudo apt update ; sudo apt install -y ffmpeg",
+  "postStartCommand": "pipenv sync --dev",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.analysis.typeCheckingMode": "basic",
+        "autoDocstring.docstringFormat": "sphinx-notypes",
+        "autoDocstring.startOnNewLine": true,
+        "editor.tabSize": 4
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "njpwerner.autodocstring",
+        "formulahendry.code-runner",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        "littlefoxteam.vscode-python-test-adapter",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  }
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}
