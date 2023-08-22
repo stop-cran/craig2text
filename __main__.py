@@ -21,7 +21,8 @@ with zipfile.ZipFile(input_zip_path) as input_zip:
 
             proc = subprocess.run(['vosk-transcriber', '-l', 'ru',
                                     '-i', input_dir,
-                                    # '-n', 'vosk-model-ru-0.42',
+                                    '-n', os.environ.get('VOSK_MODEL',
+                                                         'vosk-model-ru-0.42'),
                                     '-t', 'srt', '-o', output_dir])
 
             assert proc.returncode == 0, 'Error processing voice'
