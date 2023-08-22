@@ -1,6 +1,8 @@
 type: Microsoft.App/jobs
 name: craig2text-job
 location: West US
+identity:
+  type: SystemAssigned
 properties:
   configuration:
     manualTriggerConfig:
