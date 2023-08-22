@@ -1,0 +1,25 @@
+type: Microsoft.App/jobs
+name: craig2text-job
+location: West US
+properties:
+  configuration:
+    manualTriggerConfig:
+      parallelism: 1
+      replicaCompletionCount: 1
+    replicaRetryLimit: 1
+    replicaTimeout: 14400
+    triggerType: Manual
+  template:
+    containers:
+    - image: ghcr.io/stop-cran/craig2text:0.0.7
+      name: craig2text-job
+      resources:
+        cpu: 2.0
+        memory: 4Gi
+      volumeMounts:
+      - volumeName: data-volume
+        mountPath: /data
+    volumes:
+    - name: data-volume
+      storageName: craig
+      storageType: AzureFile

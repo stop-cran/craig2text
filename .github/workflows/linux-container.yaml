@@ -28,4 +28,4 @@ jobs:
         creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
     - name: List Azure container jobs (test)
       run: |
-        az containerapp job list
+        az containerapp job update --name craig2telegram-job --resource-group DefaultResourceGroup-WUS --yaml azure-job.yaml -o table
